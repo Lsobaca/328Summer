@@ -7,6 +7,7 @@
 import time
 import random
 import sys
+import matplotlib.pyplot as plt
 
 
 
@@ -179,8 +180,9 @@ def randomArray(n:int)->list:
     return lst
 
 
-if __name__ == '__main__':
-    
+
+
+def bubble_sort():
     bubble_data = {}
     
     
@@ -203,49 +205,116 @@ if __name__ == '__main__':
     print(f"Worst Case Bubble Sort time: {worst_bubble_time}")
     print(f"Random 10k element Bubble Sort time: {bubble_10k_time}")
     print(f"Random 1k element Bubble Sort time: {bubble_1k_time}")
+    print()
     bubble_data["Best Case"] = best_bubble_time
     bubble_data["Worst Case"] = worst_bubble_time
     bubble_data["Random 10k array"] = bubble_10k_time
     bubble_data["Random 1k array"] = bubble_1k_time
     
+    fig = plt.figure(figsize=(10,5))
+
+    cases = list(bubble_data.keys())
+    sort_times = list(bubble_data.values())
+
+
+    plt.bar(cases,sort_times, color = 'blue',
+                    width=0.4)
+        
+    plt.xlabel("Cases")
+    plt.ylabel("Time")
+    plt.title("Bubble Sort")
+
+def insertion_sort():
+    
+    insert_data = {}
     
     
-    # random_10k_element = randomArray(10_000)
-    # random_1k_element = randomArray(1_000)
-    # ascending = makeArray(1_000)
-    # decending = makeArray(1_000)
-    # decending.reverse()
-    # print()
+    random_10k_element = randomArray(10_000)
+    random_1k_element = randomArray(1_000)
+    ascending = makeArray(1_000)
+    decending = makeArray(1_000)
+    decending.reverse()
+   
     
-    # # # Insertion Sort
-    # test3 = ascending
-    # test4 = decending
-    # best_case_insert,best_insert_time =  insertsort(test4)
-    # worst_case_insert,worst_insert_time = insertsort(test3)
-    # insert_10k,insert_10k_time = insertsort(randomArray(10_000))
-    # insert_1k,insert_1k_time = insertsort(randomArray(1_000))
-    # print(f"Best Case Insert Sort time: {best_insert_time}")
-    # print(f"Worst Case Insert Sort time: {worst_insert_time}")
-    # print(f"Random 10k element Insert Sort time: {insert_10k_time}")
-    # print(f"Random 1k element Insert Sort time: {insert_1k_time}")
-    # print()
+    # # Insertion Sort
+    test3 = ascending
+    test4 = decending
+    best_case_insert,best_insert_time =  insertsort(test4)
+    worst_case_insert,worst_insert_time = insertsort(test3)
+    insert_10k,insert_10k_time = insertsort(random_10k_element)
+    insert_1k,insert_1k_time = insertsort(random_1k_element)
+    print(f"Best Case Insert Sort time: {best_insert_time}")
+    print(f"Worst Case Insert Sort time: {worst_insert_time}")
+    print(f"Random 10k element Insert Sort time: {insert_10k_time}")
+    print(f"Random 1k element Insert Sort time: {insert_1k_time}")
+    print()
+    insert_data["Best Case"] = best_insert_time
+    insert_data["Worst Case"] = worst_insert_time 
+    insert_data["Random 10k array"] = insert_10k_time
+    insert_data["Random 1k array"] = insert_1k_time
     
-    # random_10k_element = randomArray(10_000)
-    # random_1k_element = randomArray(1_000)
-    # ascending = makeArray(1_000)
-    # decending = makeArray(1_000)
-    # decending.reverse()
+    fig = plt.figure(figsize=(10,5))
+
+    cases = list(insert_data.keys())
+    sort_times = list(insert_data.values())
+
+
+    plt.bar(cases,sort_times, color = 'red',
+                    width=0.4)
+        
+    plt.xlabel("Cases")
+    plt.ylabel("Time")
+    plt.title("Insertion Sort")
+
+
+def quick_sort():
     
-    # # # Quick Sort
-    # best_case_quick,best_quick_time =  QuickSort(decending)
-    # worst_case_quick,worst_quick_time = QuickSort(ascending)
-    # quick_10k,quick_10k_time = QuickSort(random_10k_element)
-    # quick_1k,quick_1k_time = QuickSort(random_1k_element)
-    # print(f"Best Case Quick Sort time: {best_quick_time}")
-    # print(f"Worst Case Quick Sort time: {worst_quick_time}")
-    # print(f"Random 10k element Quick Sort time: {quick_10k_time}")
-    # print(f"Random 1k element Quick Sort time: {quick_1k_time}")
+    quick_data = {}
     
-    # # Merge sort
+    
+    random_10k_element = randomArray(10_000)
+    random_1k_element = randomArray(1_000)
+    ascending = makeArray(1_000)
+    decending = makeArray(1_000)
+    decending.reverse()
+    
+    # # Quick Sort
+    best_case_quick,best_quick_time =  QuickSort(decending)
+    worst_case_quick,worst_quick_time = QuickSort(ascending)
+    quick_10k,quick_10k_time = QuickSort(random_10k_element)
+    quick_1k,quick_1k_time = QuickSort(random_1k_element)
+    print(f"Best Case Quick Sort time: {best_quick_time}")
+    print(f"Worst Case Quick Sort time: {worst_quick_time}")
+    print(f"Random 10k element Quick Sort time: {quick_10k_time}")
+    print(f"Random 1k element Quick Sort time: {quick_1k_time}")
+    quick_data["Best Case"] = best_quick_time
+    quick_data["Worst Case"] = worst_quick_time
+    quick_data["Random 10k array"] = quick_10k_time
+    quick_data["Random 1k array"] = quick_1k_time
+    
+    
+    fig = plt.figure(figsize=(10,5))
+
+    cases = list(quick_data.keys())
+    sort_times = list(quick_data.values())
+
+
+    plt.bar(cases,sort_times, color = 'green',
+                    width=0.4)
+        
+    plt.xlabel("Cases")
+    plt.ylabel("Time")
+    plt.title("Quick Sort")
+
+if __name__ == '__main__':
+    
+   bubble_sort()
+   insertion_sort()
+   quick_sort()
+   
+    
+    
+    
+    # Merge sort
 
 
