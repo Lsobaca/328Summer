@@ -1,5 +1,7 @@
-
-
+'''
+@Authors: Luis Salvador Ortiz Baca,
+        Vi Tran Nguygen
+'''
 
 
 import time
@@ -38,6 +40,15 @@ def insertsort(A:list)->list:
     return lst, mtime
 
 def BubbleSort(arr:list): 
+    """_summary_
+
+    Args:
+        arr (list): _description_
+
+    Returns:
+        lst(list): sorted list of arr
+        mtime (float): 
+    """
     start_time = time.time()
     lst = arr
     for i in range(len(lst)): 
@@ -46,6 +57,7 @@ def BubbleSort(arr:list):
                 # temp = arr[y]
                 # arr[y] = arr[y+1]
                 # arr[y+1] = temp
+                
                 lst[y],lst[y+1] = lst[y+1],lst[y]
                 
     mtime = time.time() - start_time
@@ -65,14 +77,19 @@ def QuickSorthelper(arr:list, low:int, high:int):
         # temp = arr[i]
         # arr[i] = arr[j]
         # arr[j] = temp 
+        
+        # swaps arr[i] and arr[j]
         arr[i],arr[j] = arr[j],arr[i]
         
 
     # temp = arr[i+1]
     # arr[i+1] = arr[high]
     # arr[high] = temp 
+    
     arr[i+1],arr[high] = arr[high],arr[i+1] 
     pivot = i + 1 
+    
+    # the recursion is done here
     QuickSorthelper(arr, low, pivot -1)
     QuickSorthelper(arr, pivot+1, high)
 
@@ -81,6 +98,15 @@ def QuickSorthelper(arr:list, low:int, high:int):
 
   
 def QuickSort(arr):
+    """ A function that sorts an array with O(nlogn) time. 
+
+    Args:
+        arr (list): a set of numbers
+
+    Returns:
+        lst (list): the sorted list of arr
+        mtime (float): the amount of time that the function needs to finished
+    """
     start_time = time.time()
     lst = arr
     QuickSorthelper(lst,0,len(lst)-1)
@@ -155,6 +181,11 @@ def randomArray(n:int)->list:
 
 if __name__ == '__main__':
     
+    bubble_data = {}
+    
+    
+    
+    
     random_10k_element = randomArray(10_000)
     random_1k_element = randomArray(1_000)
     ascending = makeArray(1_000)
@@ -172,43 +203,49 @@ if __name__ == '__main__':
     print(f"Worst Case Bubble Sort time: {worst_bubble_time}")
     print(f"Random 10k element Bubble Sort time: {bubble_10k_time}")
     print(f"Random 1k element Bubble Sort time: {bubble_1k_time}")
+    bubble_data["Best Case"] = best_bubble_time
+    bubble_data["Worst Case"] = worst_bubble_time
+    bubble_data["Random 10k array"] = bubble_10k_time
+    bubble_data["Random 1k array"] = bubble_1k_time
     
-    random_10k_element = randomArray(10_000)
-    random_1k_element = randomArray(1_000)
-    ascending = makeArray(1_000)
-    decending = makeArray(1_000)
-    decending.reverse()
-    print()
     
-    # # Insertion Sort
-    test3 = ascending
-    test4 = decending
-    best_case_insert,best_insert_time =  insertsort(test4)
-    worst_case_insert,worst_insert_time = insertsort(test3)
-    insert_10k,insert_10k_time = insertsort(randomArray(10_000))
-    insert_1k,insert_1k_time = insertsort(randomArray(1_000))
-    print(f"Best Case Insert Sort time: {best_insert_time}")
-    print(f"Worst Case Insert Sort time: {worst_insert_time}")
-    print(f"Random 10k element Insert Sort time: {insert_10k_time}")
-    print(f"Random 1k element Insert Sort time: {insert_1k_time}")
-    print()
     
-    random_10k_element = randomArray(10_000)
-    random_1k_element = randomArray(1_000)
-    ascending = makeArray(1_000)
-    decending = makeArray(1_000)
-    decending.reverse()
+    # random_10k_element = randomArray(10_000)
+    # random_1k_element = randomArray(1_000)
+    # ascending = makeArray(1_000)
+    # decending = makeArray(1_000)
+    # decending.reverse()
+    # print()
     
-    # # Quick Sort
-    best_case_quick,best_quick_time =  QuickSort(decending)
-    worst_case_quick,worst_quick_time = QuickSort(ascending)
-    quick_10k,quick_10k_time = QuickSort(random_10k_element)
-    quick_1k,quick_1k_time = QuickSort(random_1k_element)
-    print(f"Best Case Quick Sort time: {best_quick_time}")
-    print(f"Worst Case Quick Sort time: {worst_quick_time}")
-    print(f"Random 10k element Quick Sort time: {quick_10k_time}")
-    print(f"Random 1k element Quick Sort time: {quick_1k_time}")
+    # # # Insertion Sort
+    # test3 = ascending
+    # test4 = decending
+    # best_case_insert,best_insert_time =  insertsort(test4)
+    # worst_case_insert,worst_insert_time = insertsort(test3)
+    # insert_10k,insert_10k_time = insertsort(randomArray(10_000))
+    # insert_1k,insert_1k_time = insertsort(randomArray(1_000))
+    # print(f"Best Case Insert Sort time: {best_insert_time}")
+    # print(f"Worst Case Insert Sort time: {worst_insert_time}")
+    # print(f"Random 10k element Insert Sort time: {insert_10k_time}")
+    # print(f"Random 1k element Insert Sort time: {insert_1k_time}")
+    # print()
     
-    # Merge sort
+    # random_10k_element = randomArray(10_000)
+    # random_1k_element = randomArray(1_000)
+    # ascending = makeArray(1_000)
+    # decending = makeArray(1_000)
+    # decending.reverse()
+    
+    # # # Quick Sort
+    # best_case_quick,best_quick_time =  QuickSort(decending)
+    # worst_case_quick,worst_quick_time = QuickSort(ascending)
+    # quick_10k,quick_10k_time = QuickSort(random_10k_element)
+    # quick_1k,quick_1k_time = QuickSort(random_1k_element)
+    # print(f"Best Case Quick Sort time: {best_quick_time}")
+    # print(f"Worst Case Quick Sort time: {worst_quick_time}")
+    # print(f"Random 10k element Quick Sort time: {quick_10k_time}")
+    # print(f"Random 1k element Quick Sort time: {quick_1k_time}")
+    
+    # # Merge sort
 
 
