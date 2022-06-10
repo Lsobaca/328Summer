@@ -4,6 +4,7 @@
 '''
 
 
+from re import A
 import time
 import random
 import sys
@@ -130,7 +131,7 @@ def mergesort(A:list):
         k=0
         
         while i < len(L) and j < len(R):
-            if L[i] <= R[j]:
+            if L[i] >= R[j]:
                 A[k] = L[i]
                 i+=1
             else:
@@ -353,7 +354,7 @@ if __name__ == '__main__':
    insertion_sort()
    quick_sort()
    merge_sort()
-
+   
 
 
   
