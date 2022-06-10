@@ -1,7 +1,8 @@
 '''
 @Authors: Luis Salvador Ortiz Baca,
-        Vi Tran Nguygen
+            Vi Tran Nguygen
 '''
+
 
 
 import time
@@ -15,7 +16,7 @@ sys.setrecursionlimit(10**6)
 
 def insertsort(A:list)->list:
     """ An algorithm on Insertion sort that had used the psudocode
-    from the book.
+    from the book. 
 
     Args:
         A (list): a set of numbers
@@ -41,14 +42,15 @@ def insertsort(A:list)->list:
     return lst, mtime
 
 def BubbleSort(arr:list): 
-    """_summary_
+    """ a sorting alogrithm from an old class. it checks all the elements in the array
+    the going 1 by 1 and checking if the value is less than the current value then swap it.
 
     Args:
-        arr (list): _description_
+        arr (list): a set of numbers
 
     Returns:
         lst(list): sorted list of arr
-        mtime (float): 
+        mtime (float): the time completion 
     """
     start_time = time.time()
     lst = arr
@@ -62,7 +64,7 @@ def BubbleSort(arr:list):
                 lst[y],lst[y+1] = lst[y+1],lst[y]
                 
     mtime = time.time() - start_time
-    lst = arr
+    
     return lst, mtime
                 
 
@@ -86,7 +88,8 @@ def QuickSorthelper(arr:list, low:int, high:int):
     # temp = arr[i+1]
     # arr[i+1] = arr[high]
     # arr[high] = temp 
-    
+
+    # exchanges arr[i+1] with arr[high]
     arr[i+1],arr[high] = arr[high],arr[i+1] 
     pivot = i + 1 
     
@@ -117,6 +120,15 @@ def QuickSort(arr):
 
 
 def mergesort(A:list):
+    """splits the array into subarrays then sorts them and then puts
+    them together again. we would get a sort array as a return value
+
+    Args:
+        A (list): a set of numbers
+
+    Returns:
+        complete_time: the amount of time it need to complete
+    """
     start_time = time.time()
     if len(A) > 1:
         midpoint = len(A)//2
@@ -130,14 +142,14 @@ def mergesort(A:list):
         k=0
         
         while i < len(L) and j < len(R):
-            if L[i] <= R[j]:
+            if L[i] >= R[j]:
                 A[k] = L[i]
                 i+=1
             else:
                 A[k] = R[j]
                 j +=1
             k+=1
-        
+        # makes sure everything is alright
         while i < len(L):
             A[k] = L[i]
             i+=1
@@ -211,18 +223,19 @@ def bubble_sort():
     bubble_data["Random 10k array"] = bubble_10k_time
     bubble_data["Random 1k array"] = bubble_1k_time
     
-    fig = plt.figure(figsize=(10,5))
+    # # creates a bar graph
+    # fig = plt.figure(figsize=(10,5))
 
-    cases = list(bubble_data.keys())
-    sort_times = list(bubble_data.values())
+    # cases = list(bubble_data.keys())
+    # sort_times = list(bubble_data.values())
 
 
-    plt.bar(cases,sort_times, color = 'blue',
-                    width=0.4)
+    # plt.bar(cases,sort_times, color = 'blue',
+    #                 width=0.4)
         
-    plt.xlabel("Cases")
-    plt.ylabel("Time")
-    plt.title("Bubble Sort")
+    # plt.xlabel("Cases")
+    # plt.ylabel("Time")
+    # plt.title("Bubble Sort")
 
 def insertion_sort():
     
@@ -253,18 +266,19 @@ def insertion_sort():
     insert_data["Random 10k array"] = insert_10k_time
     insert_data["Random 1k array"] = insert_1k_time
     
-    fig = plt.figure(figsize=(10,5))
+    #  # creates a bar graph
+    # fig = plt.figure(figsize=(10,5))
 
-    cases = list(insert_data.keys())
-    sort_times = list(insert_data.values())
+    # cases = list(insert_data.keys())
+    # sort_times = list(insert_data.values())
 
 
-    plt.bar(cases,sort_times, color = 'red',
-                    width=0.4)
+    # plt.bar(cases,sort_times, color = 'red',
+    #                 width=0.4)
         
-    plt.xlabel("Cases")
-    plt.ylabel("Time")
-    plt.title("Insertion Sort")
+    # plt.xlabel("Cases")
+    # plt.ylabel("Time")
+    # plt.title("Insertion Sort")
 
 
 def quick_sort():
@@ -292,29 +306,64 @@ def quick_sort():
     quick_data["Random 10k array"] = quick_10k_time
     quick_data["Random 1k array"] = quick_1k_time
     
-    
-    fig = plt.figure(figsize=(10,5))
+    #  # creates a bar graph
+    # fig = plt.figure(figsize=(10,5))
 
-    cases = list(quick_data.keys())
-    sort_times = list(quick_data.values())
+    # cases = list(quick_data.keys())
+    # sort_times = list(quick_data.values())
 
 
-    plt.bar(cases,sort_times, color = 'green',
-                    width=0.4)
+    # plt.bar(cases,sort_times, color = 'green',
+    #                 width=0.4)
         
-    plt.xlabel("Cases")
-    plt.ylabel("Time")
-    plt.title("Quick Sort")
+    # plt.xlabel("Cases")
+    # plt.ylabel("Time")
+    # plt.title("Quick Sort")
+    
+    # Merge sort
+def merge_sort():
+    
+    merge_data = {}
+    
+    
+    random_10k_element = randomArray(10_000)
+    random_1k_element = randomArray(1_000)
+    ascending = makeArray(1_000)
+    decending = makeArray(1_000)
+    decending.reverse()
+    
+    # # merge Sort
+    best_case_merge,best_merge_time =  mergesort(decending)
+    worst_case_merge,worst_merge_time = mergesort(ascending)
+    merge_10k,merge_10k_time = mergesort(random_10k_element)
+    merge_1k,merge_1k_time = mergesort(random_1k_element)
+    print(f"\nBest Case Merge time: {best_merge_time}")
+    print(f"Worst Case Merge time: {worst_merge_time}")
+    print(f"Random 10k element Merge Sort time: {merge_10k_time}")
+    print(f"Random 1k element Merge Sort time: {merge_1k_time}")
+    merge_data["Best Case"] = best_merge_time
+    merge_data["Worst Case"] = worst_merge_time
+    merge_data["Random 10k array"] = merge_10k_time
+    merge_data["Random 1k array"] = merge_1k_time
+    
+    # # creates a bar graph
+    # fig = plt.figure(figsize=(10,5))
+
+    # cases = list(merge_data.keys())
+    # sort_times = list(merge_data.values())
+
+
+    # plt.bar(cases,sort_times, color = 'purple',
+    #                 width=0.4)
+        
+    # plt.xlabel("Cases")
+    # plt.ylabel("Time")
+    # plt.title("Merge Sort")
+
 
 if __name__ == '__main__':
     
    bubble_sort()
    insertion_sort()
    quick_sort()
-   
-    
-    
-    
-    # Merge sort
-
-
+   merge_sort()
