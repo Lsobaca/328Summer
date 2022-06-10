@@ -1,10 +1,10 @@
 '''
 @Authors: Luis Salvador Ortiz Baca,
-        Vi Tran Nguygen
+            Vi Tran Nguygen
 '''
 
 
-from re import A
+
 import time
 import random
 import sys
