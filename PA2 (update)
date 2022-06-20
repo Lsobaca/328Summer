@@ -1,0 +1,150 @@
+from dataclasses import dataclass
+from dataclasses import field
+
+
+@dataclass
+class heap:
+    # an unheaped array where the defaut vale is an empty list
+    heap: list = field(default_factory=list)
+
+    # the size of the heap where the defualt value is 0
+    heap_size: int = 0
+
+
+
+    def pop(self):
+      popped = self.heap[0]
+      self.heap[0] = self.heap[self.heap_size - 1] 
+      self.heap.remove(self.heap[self.heap_size - 1] )
+      #print(self.heap_size)
+      self.build_Min_Heap() 
+      #print(self.heap)
+      return popped
+  
+    def insert(self,k:int):
+      self.heap.append(k)
+      self.build_Min_Heap() 
+      return k 
+      
+    
+        
+ 
+
+    def minHeap(self,K:int):
+        #print("minHeap being called")
+        """ moves the nodes around to make the min heap
+
+        Args:
+            K (int): the smallest value
+        """
+        left = 2 * K + 1
+        right = 2 * K + 2
+        # sets k as the smallest value
+        smallest = K
+        #print(self.heap_size)
+        if left < self.heap_size and self.heap[left] < self.heap[smallest]:
+            smallest = left
+
+        if right < self.heap_size and self.heap[right] < self.heap[smallest]:
+            smallest = right
+
+        if smallest != K:
+            self.heap[K],self.heap[smallest] = self.heap[smallest],self.heap[K]
+            self.minHeap(smallest)
+
+    def build_Min_Heap(self):
+        """ creates a min heap 
+        """
+        #print("build min heap being called")
+        self.heap_size = len(self.heap)
+        #print(self.heap_size)
+        for k in range((self.heap_size//2)-1 , -1, -1):
+            self.minHeap(k)
+
+
+    def heapsort(self):
+        """ sorts the min heap.
+        """
+        print("Heal sort is called")
+        self.build_Min_Heap()
+        # the -1 on the range makes it work. DO NOT CHANGE
+        for i in range(self.heap_size-1,-1,-1):
+            # swaps the root and with the i index
+            self.heap[0],self.heap[i] = self.heap[i],self.heap[0]
+            self.minHeap(i)
+        # self.minHeap(0)
+
+
+
+def menu():
+    print("1. Push\n2. Pop\n3. Build min heap\n4. Heap sort \n5. Generate random array              \n6. Quit")
+
+
+
+def main():
+  pass
+
+
+# kek = heap([3,9,2,1,4,5],6)
+# kek.build_Min_Heap()
+# print(kek)
+# kek.heapsort()
+# print(kek)
+global kek
+while True:
+  menu() 
+  useroption = input("Enter here: " ) 
+  try: 
+    flag = int(useroption)
+    
+    if flag == 3: 
+      # print("User chose 3")
+      userin = input("Please enter the list of number here: ") 
+      userlist = []
+      counter = 0
+      for i in userin: 
+        if i != ',': 
+          userlist.append(int(i))
+          counter += 1 
+      #print(userlist)
+      kek = heap(userlist, counter)
+      print(kek)
+    
+    if flag == 1: 
+      # print("User chose 1")
+      userin = input("Please enter a number to push into the heap: ")
+      kek.insert(int(userin))
+      print(kek)
+      
+    if flag == 2: 
+      # print("User chose 2")
+      kek.pop() 
+      print(kek)
+      
+    if flag == 4: 
+      # print("User chose 4")
+      print("Sorting heap")
+      kek.heapsort() 
+      print("Heap after sort\n", kek)
+    if flag == 5: 
+      print("User chose 5")
+      
+    if flag == 6: 
+      print("User chose 6")
+      print("Exiting program!")
+      break
+  except:
+    print("NOT A VALID INPUT PLEASE PUT NUMBER OF OPTION ONLY!!!")
+    print("OR PLEASE MAKE A HEAP THROUGH OPTION 3 FIRST IF YOU WANT TO DO SOMETHING WITH IT!!")
+
+
+
+# kek.pop() 
+# print(kek)
+# kek.pop() 
+# print(kek)
+# kek.insert(19)
+# print(kek)
+
+# lst1 = heap()
+# print(lst1)
