@@ -42,7 +42,7 @@ def heapsort(A:list):
 
 
 
-lst = [4,1,3,2,16,9,10,14,8,7]
+lst = [-4,1,3,2,16,9,-10,-14,8,7,103,1,-531,7,-2,-33,-12]
 lst2 = deepcopy(lst)
 print(lst)
 heapsort(lst)
@@ -50,8 +50,8 @@ print(lst)
 
 print()
 
-print(lst2)
-heapq.heapify(lst2)
-print(lst2)
-heapq._heapify_max(lst2)
-print(lst2)
+# print(lst2)
+# heapq.heapify(lst2)
+# print(lst2)
+# heapq._heapify_max(lst2)
+# print(lst2)
