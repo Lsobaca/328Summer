@@ -38,15 +38,15 @@ class heap:
       Args:
             K (int): the smallest value
       """
-      left = 2 * K + 1
-      right = 2 * K + 2
+      left = 2 * K 
+      right = 2 * K + 1
       # sets k as the smallest value
       smallest = K
       #print(self.heap_size)
-      if left < self.heap_size and self.heap[left] < self.heap[smallest]:
+      if left < self.heap_size and self.heap[left] > self.heap[smallest]:
           smallest = left
 
-      if right < self.heap_size and self.heap[right] < self.heap[smallest]:
+      if right < self.heap_size and self.heap[right] > self.heap[smallest]:
           smallest = right
 
       if smallest != K:
@@ -59,7 +59,7 @@ class heap:
       #print("build min heap being called")
      
       #print(self.heap_size)
-      for k in range((self.heap_size-1,0,-1) ):
+      for k in range((self.heap_size//2 -1,0,-1) ):
           self.minHeap(k)
 
     def heapsort(self):
@@ -69,13 +69,13 @@ class heap:
 
       self.heap_size = len(self.heap)
       for i in (range(self.heap_size//2,-1,-1)):
-        self.minHeap(i)
+        self.heapify()
         
       # the -1 on the range makes it work. DO NOT CHANGE
-      for i in reversed(range(self.heap_size-1)):
+      for i in (range(self.heap_size-1,-1,-1)):
           # swaps the root and with the i index
           self.heap[0],self.heap[i] = self.heap[i],self.heap[0]
-          self.minHeap(i)
+          self.heapify()
       # self.minHeap(0)
 
 
@@ -129,7 +129,45 @@ def randomArray(n:int)->list:
     return lst
   
 
+def Parent(i):
+    return i//2
+
+def Left(i):
+    return 2 * i 
+
+def Right(i):
+    return 2 * i + 1
+
     
+# makes the heap
+def Heapify(A:list,i:int,heap_size:int):
+    left = Left(i)
+    right = Right(i)
+    largest = i
+
+    if left < heap_size and A[left] > A[i]:
+        largest = left
+        
+    if right < heap_size and A[right] > A[largest]:
+        largest = right
+    if largest != i:
+        A[i],A[largest] = A[largest],A[i]
+        Heapify(A,largest,heap_size)
+
+# sorts the heap
+def heapsort(A:list):
+    
+    heap_size = len(A)
+    for i in range(heap_size//2 ,-1,-1):
+        Heapify(A,i,heap_size)
+
+    for i in range(heap_size-1,0,-1):
+        A[0],A[i] = A[i],A[0]
+     
+        Heapify(A,0,i)
+
+
+
 
 
 
@@ -145,8 +183,8 @@ def main():
 lst = randomArray(8)
 keke = heap(lst,len(lst))
 print(keke)
-#keke.heapify()
-#print(keke)
+keke.heapify()
+print(keke)
 keke.heapsort()
 print(keke)
 
