@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from dataclasses import field
 import random 
+import time
 
 
 @dataclass
@@ -31,7 +32,7 @@ class heap:
         
  
 
-    def minHeap(self,K:int):
+    def minHeap(self,K:int, size:int):
       #print("minHeap being called")
       """ moves the nodes around to make the min heap
 
@@ -43,15 +44,15 @@ class heap:
       # sets k as the smallest value
       smallest = K
       #print(self.heap_size)
-      if left < self.heap_size and self.heap[left] > self.heap[smallest]:
+      if left < size and self.heap[left] < self.heap[smallest]:
           smallest = left
 
-      if right < self.heap_size and self.heap[right] > self.heap[smallest]:
+      if right < size and self.heap[right] < self.heap[smallest]:
           smallest = right
 
       if smallest != K:
           self.heap[K],self.heap[smallest] = self.heap[smallest],self.heap[K]
-          self.minHeap(smallest)
+          self.minHeap(smallest,size)
 
     def build_Min_Heap(self):
       """ creates a min heap 
@@ -59,23 +60,24 @@ class heap:
       #print("build min heap being called")
      
       #print(self.heap_size)
-      for k in range((self.heap_size//2 -1,0,-1) ):
-          self.minHeap(k)
+      size = self.heap_size
+      for k in range((size//2)-1,-1,-1 ):
+          self.minHeap(k,size)
 
     def heapsort(self):
       """ sorts the min heap.
       """
       print("Sorting with heap sort")
 
-      self.heap_size = len(self.heap)
-      for i in (range(self.heap_size//2,-1,-1)):
-        self.heapify()
+      size = len(self.heap)
+      for i in (range(size//2,-1,-1)):
+        self.minHeap(i,size)
         
       # the -1 on the range makes it work. DO NOT CHANGE
       for i in (range(self.heap_size-1,-1,-1)):
           # swaps the root and with the i index
           self.heap[0],self.heap[i] = self.heap[i],self.heap[0]
-          self.heapify()
+          self.minHeap(0,i)
       # self.minHeap(0)
 
 
@@ -127,8 +129,8 @@ def randomArray(n:int)->list:
     lst = []
     for _ in range(n):
         lst.append(random.randint(-1000,1000))
-    print("Generate random array")
-    print(lst)
+    #print("Generate random array")
+    #print(lst)
     return lst
   
 
@@ -186,9 +188,13 @@ def main():
 lst = randomArray(8)
 keke = heap(lst,len(lst))
 print(keke)
-lst2 = randomArray(8)
-heapsort(lst2)
-print(lst2)
+keke.build_Min_Heap()
+print(keke)
+keke.heapsort()
+print(keke)
+#lst2 = randomArray(8)
+#heapsort(lst2)
+#print(lst2)
 
 # kek = heap([3,9,2,1,4,5],6)
 # kek.build_Min_Heap()
