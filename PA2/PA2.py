@@ -79,38 +79,41 @@ class heap:
       # self.minHeap(0)
 
 
-    def heapify(self):
-      for i in reversed(range(self.heap_size//2)):
-        self.shiftup(i)
 
-    def shiftdown(self, startpos, pos):
-        newitem = self.heap[pos]
 
-        while pos > startpos:
-            parentpos = (pos - 1) >> 1
-            parent = self.heap[parentpos]
-            if newitem < parent:
-                self.heap[pos] = parent
-                pos = parentpos
-                continue
-            break
-        self.heap[pos] = newitem
 
-    def shiftup(self,pos):
-      endpos = self.heap_size
-      startposs = pos
-      newiteam = self.heap[pos]
-      childpos = 2 * pos + 1
-      while childpos < endpos:
-        right = childpos + 1
-        if right < endpos and not self.heap[childpos] < self.heap[right]:
-          childpos = right
+    # def heapify(self):
+    #   for i in reversed(range(self.heap_size//2)):
+    #     self.shiftup(i)
 
-        self.heap[pos] = self.heap[childpos]
-        pos = childpos
-        childpos = 2 * pos + 1
-      self.heap[pos] = newiteam
-      self.shiftdown(startposs,pos)
+    # def shiftdown(self, startpos, pos):
+    #     newitem = self.heap[pos]
+
+    #     while pos > startpos:
+    #         parentpos = (pos - 1) >> 1
+    #         parent = self.heap[parentpos]
+    #         if newitem < parent:
+    #             self.heap[pos] = parent
+    #             pos = parentpos
+    #             continue
+    #         break
+    #     self.heap[pos] = newitem
+
+    # def shiftup(self,pos):
+    #   endpos = self.heap_size
+    #   startposs = pos
+    #   newiteam = self.heap[pos]
+    #   childpos = 2 * pos + 1
+    #   while childpos < endpos:
+    #     right = childpos + 1
+    #     if right < endpos and not self.heap[childpos] < self.heap[right]:
+    #       childpos = right
+
+    #     self.heap[pos] = self.heap[childpos]
+    #     pos = childpos
+    #     childpos = 2 * pos + 1
+    #   self.heap[pos] = newiteam
+    #   self.shiftdown(startposs,pos)
       
     
         
@@ -183,10 +186,9 @@ def main():
 lst = randomArray(8)
 keke = heap(lst,len(lst))
 print(keke)
-keke.heapify()
-print(keke)
-keke.heapsort()
-print(keke)
+lst2 = randomArray(8)
+heapsort(lst2)
+print(lst2)
 
 # kek = heap([3,9,2,1,4,5],6)
 # kek.build_Min_Heap()
