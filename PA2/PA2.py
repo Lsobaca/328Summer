@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from dataclasses import field
+
 import random 
 import time
 
@@ -10,9 +11,11 @@ class heap:
     heap: list = field(default_factory=list)
 
     # the size of the heap where the defualt value is 0
-    heap_size: int = 0
+    heap_size: int = field(repr=False, default = 0)
 
 
+
+   
 
     def pop(self):
       popped = self.heap[0]
@@ -54,6 +57,8 @@ class heap:
           self.heap[K],self.heap[smallest] = self.heap[smallest],self.heap[K]
           self.minHeap(smallest,size)
 
+
+
     def build_Min_Heap(self):
       """ creates a min heap 
       """
@@ -64,60 +69,45 @@ class heap:
       for k in range((size//2)-1,-1,-1 ):
           self.minHeap(k,size)
 
+
+
     def heapsort(self):
       """ sorts the min heap.
       """
-      print("Sorting with heap sort")
 
-      size = len(self.heap)
-      for i in (range(size//2,-1,-1)):
-        self.minHeap(i,size)
+      print("Sorting with heap sort")
+      tmes = time.time()
+      #size = len(self.heap)
+      #for i in (range(size//2,-1,-1)):
+      #  self.minHeap(i,size)
+
+      self.build_Min_Heap()
         
       # the -1 on the range makes it work. DO NOT CHANGE
       for i in (range(self.heap_size-1,-1,-1)):
           # swaps the root and with the i index
           self.heap[0],self.heap[i] = self.heap[i],self.heap[0]
           self.minHeap(0,i)
-      # self.minHeap(0)
 
-
-
-
-
-    # def heapify(self):
-    #   for i in reversed(range(self.heap_size//2)):
-    #     self.shiftup(i)
-
-    # def shiftdown(self, startpos, pos):
-    #     newitem = self.heap[pos]
-
-    #     while pos > startpos:
-    #         parentpos = (pos - 1) >> 1
-    #         parent = self.heap[parentpos]
-    #         if newitem < parent:
-    #             self.heap[pos] = parent
-    #             pos = parentpos
-    #             continue
-    #         break
-    #     self.heap[pos] = newitem
-
-    # def shiftup(self,pos):
-    #   endpos = self.heap_size
-    #   startposs = pos
-    #   newiteam = self.heap[pos]
-    #   childpos = 2 * pos + 1
-    #   while childpos < endpos:
-    #     right = childpos + 1
-    #     if right < endpos and not self.heap[childpos] < self.heap[right]:
-    #       childpos = right
-
-    #     self.heap[pos] = self.heap[childpos]
-    #     pos = childpos
-    #     childpos = 2 * pos + 1
-    #   self.heap[pos] = newiteam
-    #   self.shiftdown(startposs,pos)
+      tm = time.time() - tmes 
+      return tm
       
+
+
+def check_time(tm: float):
+    if round(tm * 100) >=1:
+        print(f'{tm} seconds')
+    else:
+        print(f"{tm} milliseconds")
     
+
+      
+def python_sort(A:list)->float:
+     times = time.time()
+     A.sort()
+     tm =  time.time() - times
+     return tm
+
         
 def randomArray(n:int)->list:
     """Creates an array with random elements. the array is n long and the elemenets are from -1000 to 1000
@@ -134,147 +124,80 @@ def randomArray(n:int)->list:
     return lst
   
 
-def Parent(i):
-    return i//2
-
-def Left(i):
-    return 2 * i 
-
-def Right(i):
-    return 2 * i + 1
-
-    
-# makes the heap
-def Heapify(A:list,i:int,heap_size:int):
-    left = Left(i)
-    right = Right(i)
-    largest = i
-
-    if left < heap_size and A[left] > A[i]:
-        largest = left
-        
-    if right < heap_size and A[right] > A[largest]:
-        largest = right
-    if largest != i:
-        A[i],A[largest] = A[largest],A[i]
-        Heapify(A,largest,heap_size)
-
-# sorts the heap
-def heapsort(A:list):
-    
-    heap_size = len(A)
-    for i in range(heap_size//2 ,-1,-1):
-        Heapify(A,i,heap_size)
-
-    for i in range(heap_size-1,0,-1):
-        A[0],A[i] = A[i],A[0]
-     
-        Heapify(A,0,i)
-
-
-
-
-
-
 def menu():
     print("1. Push\n2. Pop\n3. Build min heap\n4. Heap sort \n5. Generate random array              \n6. Quit")
 
 
 
 def main():
-  pass
+ while True:
+   menu() 
+   useroption = input("Enter here: " ) 
+   try: 
+     flag = int(useroption)
+    
+     if flag == 3: 
+       # print("User chose 3")
+       userin = input("Please enter the list of number here: ") 
+       userlist = userin.split(',')
+       kek = heap(userlist, len(userlist))
+       kek.build_Min_Heap()
+       print(kek)
+    
+     if flag == 1: 
+       # print("User chose 1")
+       userin = input("Please enter a number to push into the heap: ")
+       kek.insert(int(userin))
+       print(kek)
+      
+     if flag == 2: 
+       # print("User chose 2")
+       kek.pop() 
+       print(kek)
+      
+     if flag == 4: 
+       # print("User chose 4")
+       print("Sorting heap")
+       kek.heapsort() 
+       print("Heap after sort\n", kek)
+      
+     if flag == 5: 
+       #print("User chose 5")
+       # userarr = []
+       userin = int(input("Please enter the length of the random array: "))
+       # userarr = randomArray(int(userin))
+       kek = heap(randomArray(userin),userin)
+       kek.heapsort()
+       print(kek)
+      
+     if flag == 6: 
+       print("User chose 6")
+       print("Exiting program!")
+       break
+   except ValueError:
+     print("NOT A VALID INPUT PLEASE PUT NUMBER OF OPTION ONLY!!!")
+     print("OR PLEASE MAKE A HEAP THROUGH OPTION 3 FIRST IF YOU WANT TO DO SOMETHING WITH IT!!")
 
 
-lst = randomArray(8)
+
+
+lst = randomArray(1_000_000)
 keke = heap(lst,len(lst))
-print(keke)
-keke.build_Min_Heap()
-print(keke)
-keke.heapsort()
-print(keke)
+#print(keke)
+#keke.build_Min_Heap()
+#print(keke)
+#keke.heapsort()
+#print(keke)
+
+
+heaptime = keke.heapsort()
+print(heaptime)
+
+pytime = python_sort(lst)
+print(pytime)
 #lst2 = randomArray(8)
 #heapsort(lst2)
 #print(lst2)
 
-# kek = heap([3,9,2,1,4,5],6)
-# kek.build_Min_Heap()
-# print(kek)
-# kek.heapsort()
-# print(kek)
-# global kek
-# while True:
-#   menu() 
-#   useroption = input("Enter here: " ) 
-#   try: 
-#     flag = int(useroption)
-    
-#     if flag == 3: 
-#       # print("User chose 3")
-#       userin = input("Please enter the list of number here: ") 
-#       userlist = userin.split(',')
-#       #counter = 0
-#       # for i in range(len(userin)): 
-#       #   #print("enter for loop")
-#       #   if userin[i] != ',': 
-#       #     #print("outer if")
-#       #     if userin[i] == '-': 
-#       #       print("negative if called", i)
-#       #       counter += 1 
-#       #       userlist.append(int(userin[i])/-1)
-#       #       print("After increment" , counter)
-#       #       print("i is ", i)
-#       #     else: 
-#       #       print("else called", counter)
-#       #       print("i is ", i)
-#       #       userlist.append(int(userin[i]))
-#       #     counter += 1
-#       # print(userlist)
-#       kek = heap(userlist, len(userlist))
-#       kek.build_Min_Heap()
-#       print(kek)
-    
-#     if flag == 1: 
-#       # print("User chose 1")
-#       userin = input("Please enter a number to push into the heap: ")
-#       kek.insert(int(userin))
-#       print(kek)
-      
-#     if flag == 2: 
-#       # print("User chose 2")
-#       kek.pop() 
-#       print(kek)
-      
-#     if flag == 4: 
-#       # print("User chose 4")
-#       print("Sorting heap")
-#       kek.heapsort() 
-#       print("Heap after sort\n", kek)
-      
-#     if flag == 5: 
-#       #print("User chose 5")
-#       # userarr = []
-#       userin = int(input("Please enter the length of the random array: "))
-#       # userarr = randomArray(int(userin))
-#       kek = heap(randomArray(userin),userin)
-#       kek.heapsort()
-#       print(kek)
-      
-#     if flag == 6: 
-#       print("User chose 6")
-#       print("Exiting program!")
-#       break
-#   except ValueError:
-#     print("NOT A VALID INPUT PLEASE PUT NUMBER OF OPTION ONLY!!!")
-#     print("OR PLEASE MAKE A HEAP THROUGH OPTION 3 FIRST IF YOU WANT TO DO SOMETHING WITH IT!!")
 
 
-
-# # kek.pop() 
-# # print(kek)
-# # kek.pop() 
-# # print(kek)
-# # kek.insert(19)
-# # print(kek)
-
-# # lst1 = heap()
-# # print(lst1)
