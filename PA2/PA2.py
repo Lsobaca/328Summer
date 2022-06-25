@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from dataclasses import field
 
-import random 
+import random
 import time
 
 
@@ -12,7 +12,6 @@ class heap:
 
     # the size of the heap where the defualt value is 0
     heap_size: int = field(repr=False, default = 0)
-
 
 
    
@@ -28,6 +27,7 @@ class heap:
   
     def insert(self,k:int):
       self.heap.append(k)
+      self.heap_size += 1
       self.build_Min_Heap() 
       return k 
       
@@ -76,7 +76,7 @@ class heap:
       """
 
       print("Sorting with heap sort")
-      tmes = time.time()
+      t = time.time()
       #size = len(self.heap)
       #for i in (range(size//2,-1,-1)):
       #  self.minHeap(i,size)
@@ -89,16 +89,17 @@ class heap:
           self.heap[0],self.heap[i] = self.heap[i],self.heap[0]
           self.minHeap(0,i)
 
-      tm = time.time() - tmes 
+      tm = time.time() - t
+
       return tm
       
 
 
-def check_time(tm: float):
-    if round(tm * 100) >=1:
-        print(f'{tm} seconds')
+def check_time(tm: float) -> str:
+    if tm >=1:
+        return (f'{tm} seconds')
     else:
-        print(f"{tm} milliseconds")
+        return (f"{tm} milliseconds")
     
 
       
@@ -125,7 +126,7 @@ def randomArray(n:int)->list:
   
 
 def menu():
-    print("1. Push\n2. Pop\n3. Build min heap\n4. Heap sort \n5. Generate random array              \n6. Quit")
+    print("1. Push\n2. Pop\n3. Build min heap\n4. Heap sort \n5. Generate random array\n6. Create an empty heap\n7. Quit\n")
 
 
 
@@ -135,10 +136,10 @@ def main():
    useroption = input("Enter here: " ) 
    try: 
      flag = int(useroption)
-    
+
      if flag == 3: 
        # print("User chose 3")
-       userin = input("Please enter the list of number here: ") 
+       userin = input("Please enter the list of number here(seperated with ,): ") 
        userlist = userin.split(',')
        kek = heap(userlist, len(userlist))
        kek.build_Min_Heap()
@@ -162,42 +163,27 @@ def main():
        print("Heap after sort\n", kek)
       
      if flag == 5: 
-       #print("User chose 5")
-       # userarr = []
        userin = int(input("Please enter the length of the random array: "))
-       # userarr = randomArray(int(userin))
-       kek = heap(randomArray(userin),userin)
-       kek.heapsort()
-       print(kek)
-      
-     if flag == 6: 
-       print("User chose 6")
+       userarr = randomArray((userin))
+       kek = heap(userarr,userin)
+       heaptime = kek.heapsort()
+       pytime = python_sort(userarr)
+       print(f'Heapsort takes {check_time(heaptime)}')
+       print(f'The python defualt sort takes {check_time(pytime)}')
+
+     if flag == 6:
+      print('created an empty heap')
+      kek = heap()
+
+
+     if flag == 7: 
+       print("User chose 7")
        print("Exiting program!")
        break
+     
    except ValueError:
      print("NOT A VALID INPUT PLEASE PUT NUMBER OF OPTION ONLY!!!")
      print("OR PLEASE MAKE A HEAP THROUGH OPTION 3 FIRST IF YOU WANT TO DO SOMETHING WITH IT!!")
 
-
-
-
-lst = randomArray(1_000_000)
-keke = heap(lst,len(lst))
-#print(keke)
-#keke.build_Min_Heap()
-#print(keke)
-#keke.heapsort()
-#print(keke)
-
-
-heaptime = keke.heapsort()
-print(heaptime)
-
-pytime = python_sort(lst)
-print(pytime)
-#lst2 = randomArray(8)
-#heapsort(lst2)
-#print(lst2)
-
-
-
+if __name__== '__main__':
+  main()
