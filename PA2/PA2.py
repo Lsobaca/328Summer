@@ -19,31 +19,23 @@ class heap:
     heap_size: int = field(repr=False, default = 0)
 
 
-   
-
     def pop(self):
-      
       popped = self.heap[0]
       self.heap[0] = self.heap[self.heap_size - 1] 
       self.heap.remove(self.heap[self.heap_size - 1] )
-      #print(self.heap_size)
+     
       self.build_Min_Heap() 
-      #print(self.heap)
+     
       return popped
   
-    def insert(self,k:int):
+    def insert(self,k:int)->int:
 
       self.heap.append(k)
-      self.heap_size += 1
       self.build_Min_Heap() 
       return k 
-      
-    
-        
- 
 
-    def minHeap(self,K:int, size:int):
-      #print("minHeap being called")
+
+    def minHeap(self,K:int, size:int)->None:
       """ moves the nodes around to make the min heap
 
       Args:
@@ -53,7 +45,7 @@ class heap:
       right = 2 * K + 2
       # sets k as the smallest value
       smallest = K
-      #print(self.heap_size)
+
       if left < size and self.heap[left] < self.heap[smallest]:
           smallest = left
 
@@ -66,12 +58,9 @@ class heap:
 
 
 
-    def build_Min_Heap(self):
+    def build_Min_Heap(self)->None:
       """ creates a min heap 
       """
-      #print("build min heap being called")
-     
-      #print(self.heap_size)
       size = self.heap_size
       for k in range((size//2)-1,-1,-1 ):
           self.minHeap(k,size)
@@ -82,9 +71,6 @@ class heap:
       """ sorts the min heap.
       """
       t = time.time()
-      #size = len(self.heap)
-      #for i in (range(size//2,-1,-1)):
-      #  self.minHeap(i,size)
 
       self.build_Min_Heap()
         
@@ -101,18 +87,34 @@ class heap:
 
 
 def check_time(tm: float) -> str:
-    if tm >=1:
+  """checks the time if it finished in seconds or milliseconds
+
+  Args:
+      tm (float): time of completion of the programs
+
+  Returns:
+      str: returns either seconds or milliseconds
+  """
+  if tm >=1:
         return (f'{tm} seconds')
-    else:
+  else:
         return (f"{tm} milliseconds")
     
 
       
 def python_sort(A:list)->float:
-     times = time.time()
-     A.sort()
-     tm =  time.time() - times
-     return tm
+  """sorts the list by using python's sort algorithm.
+
+  Args:
+      A (list): a set of numbers
+
+  Returns:
+     tm (float): the amount of time that had passed
+  """
+  times = time.time()
+  A.sort()
+  tm =  time.time() - times
+  return tm
 
         
 def randomArray(n:int)->list:
@@ -147,26 +149,33 @@ def main():
        # print("User chose 3")
        userin = input("Please enter the list of number here(seperated with ,): ") 
        userlist = userin.split(',')
-       kek = heap(userlist, len(userlist))
+       # makes the userlist into an integer list
+       lst = list(map(int,userlist))
+
+       kek = heap(lst, len(userlist))
        kek.build_Min_Heap()
        print(kek)
+       print()
     
      if flag == 1: 
        # print("User chose 1")
        userin = input("Please enter a number to push into the heap: ")
        kek.insert(int(userin))
        print(kek)
+       print()
       
      if flag == 2: 
        # print("User chose 2")
        kek.pop() 
        print(kek)
+       print()
       
      if flag == 4: 
        # print("User chose 4")
-       print("Sorting heap")
-       kek.heapsort() 
-       print("Heap after sort\n", kek)
+       print("Sorting the heap")
+       _ = kek.heapsort() 
+       print(f"Heap after sort:\n{kek}")
+       print()
       
      if flag == 5: 
        userin = int(input("Please enter the length of the random array: "))
@@ -176,11 +185,13 @@ def main():
        pytime = python_sort(userarr)
        print(f'Heapsort takes {check_time(heaptime)}')
        print(f'The python defualt sort takes {check_time(pytime)}')
+       print()
 
      if flag == 6:
       print('created an empty heap')
       kek = heap()
       print(kek)
+      print()
 
 
      if flag == 7: 
@@ -191,6 +202,7 @@ def main():
    except ValueError:
      print("NOT A VALID INPUT PLEASE PUT NUMBER OF OPTION ONLY!!!")
      print("OR PLEASE MAKE A HEAP THROUGH OPTION 3 FIRST IF YOU WANT TO DO SOMETHING WITH IT!!")
+     print()
 
 if __name__== '__main__':
   main()
