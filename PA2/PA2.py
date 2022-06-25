@@ -1,3 +1,8 @@
+'''
+@Authors: Luis Ortiz ID: 027085420
+          Vi Tran Nguyen ID: 02752080
+'''
+
 from dataclasses import dataclass
 from dataclasses import field
 
@@ -17,6 +22,7 @@ class heap:
    
 
     def pop(self):
+      
       popped = self.heap[0]
       self.heap[0] = self.heap[self.heap_size - 1] 
       self.heap.remove(self.heap[self.heap_size - 1] )
@@ -26,6 +32,7 @@ class heap:
       return popped
   
     def insert(self,k:int):
+
       self.heap.append(k)
       self.heap_size += 1
       self.build_Min_Heap() 
@@ -42,8 +49,8 @@ class heap:
       Args:
             K (int): the smallest value
       """
-      left = 2 * K 
-      right = 2 * K + 1
+      left = 2 * K + 1
+      right = 2 * K + 2
       # sets k as the smallest value
       smallest = K
       #print(self.heap_size)
@@ -74,8 +81,6 @@ class heap:
     def heapsort(self):
       """ sorts the min heap.
       """
-
-      print("Sorting with heap sort")
       t = time.time()
       #size = len(self.heap)
       #for i in (range(size//2,-1,-1)):
@@ -120,8 +125,6 @@ def randomArray(n:int)->list:
     lst = []
     for _ in range(n):
         lst.append(random.randint(-1000,1000))
-    #print("Generate random array")
-    #print(lst)
     return lst
   
 
@@ -131,7 +134,10 @@ def menu():
 
 
 def main():
- while True:
+  """this is the main operation for the file.
+
+  """
+  while True:
    menu() 
    useroption = input("Enter here: " ) 
    try: 
@@ -174,6 +180,7 @@ def main():
      if flag == 6:
       print('created an empty heap')
       kek = heap()
+      print(kek)
 
 
      if flag == 7: 
