@@ -12,9 +12,7 @@ class heap:
 
     # the size of the heap where the defualt value is 0
     heap_size: int = field(repr=False, default = 0)
-
-
-   
+    
 
     def pop(self):
       popped = self.heap[0]
@@ -96,7 +94,7 @@ class heap:
 
 
 def check_time(tm: float) -> str:
-    if tm >=1:
+    if tm >= 1:
         return (f'{tm} seconds')
     else:
         return (f"{tm} milliseconds")
@@ -111,7 +109,7 @@ def python_sort(A:list)->float:
 
         
 def randomArray(n:int)->list:
-    """Creates an array with random elements. the array is n long and the elemenets are from -1000 to 1000
+    """Creates an array with random elements. the array is n long and the elements are from -1000 to 1000
     Args:
         n (int): the length of the array
     Returns:
@@ -144,17 +142,20 @@ def main():
        kek = heap(userlist, len(userlist))
        kek.build_Min_Heap()
        print(kek)
+       print()
     
      if flag == 1: 
        # print("User chose 1")
        userin = input("Please enter a number to push into the heap: ")
        kek.insert(int(userin))
        print(kek)
+       print()
       
      if flag == 2: 
        # print("User chose 2")
        kek.pop() 
        print(kek)
+       print()
       
      if flag == 4: 
        # print("User chose 4")
@@ -170,11 +171,13 @@ def main():
        pytime = python_sort(userarr)
        print(f'Heapsort takes {check_time(heaptime)}')
        print(f'The python defualt sort takes {check_time(pytime)}')
+       print()
 
      if flag == 6:
       print('created an empty heap')
       kek = heap()
-
+      print(kek)
+      print()
 
      if flag == 7: 
        print("User chose 7")
